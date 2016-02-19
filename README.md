@@ -1,10 +1,12 @@
 # ejnkrfsd
 
-FIXME: description
+项目名为滚键盘所得
+
+维护更新看心情
 
 ## Installation
 
-Download from http://example.com/FIXME.
+Download from <https://github.com/iovxw/ejnkrfsd/releases>.
 
 ## Usage
 
@@ -20,17 +22,8 @@ FIXME: listing of options this app accepts.
 
 ...
 
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
 ## License
 
-Copyright © 2016 FIXME
+Copyright © 2016 iovxw
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the MIT License.
