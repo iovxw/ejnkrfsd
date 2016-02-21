@@ -9,3 +9,9 @@ pom.xml.asc
 /.nrepl-port
 .hgignore
 .hg/
+
+database.db
+database.db-journal
+/steamcmd
+/unturned
+/rocket

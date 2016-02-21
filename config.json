@@ -1,0 +1,6 @@
+{
+    "workdir": "./",
+    "steamcmd": "./steamcmd/steamcmd.sh",
+    "username": "",
+    "password": "",
+}
