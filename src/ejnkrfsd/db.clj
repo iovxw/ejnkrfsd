@@ -7,21 +7,16 @@
 (defn init-db [db]
   (jdbc/execute! db ["CREATE TABLE IF NOT EXISTS user (
                       id          VARCHAR,
-                      password    VARCHAR)"]))
+                      password    VARCHAR,
+                      admin       BOOLEAN)"]))
 
 (defn new-user [db id password]
   (let [password-hash (.hash argon2 2 65536 1 password)]
     (jdbc/insert! db :user {:id id, :password password-hash})))
 
-(defn query-first [db query]
-  (first (jdbc/query db query)))
+(defn get-user-info [db id]
+  (-> (jdbc/query db ["SELECT * FROM user WHERE id = ? LIMIT 1" id])
+      first))
 
-(defn true-passsword? [db id password]
-  (if-let [row (query-first db ["SELECT password FROM user WHERE id = ?" id])]
-    (let [password-hash (row :password)]
-      (if (.verify argon2 password-hash password)
-        true
-        false))
-    ; (throw Exception. (format "User does not exist: %s" id))
-    ; 用户不存在，不过为了防止有人猜用户名，所以不提示
-    false))
+(defn true-passsword? [password password-hash]
+  (.verify argon2 password-hash password))
