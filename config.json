@@ -3,4 +3,5 @@
     "steamcmd": "./steamcmd/steamcmd.sh",
     "username": "",
     "password": "",
+    "port": 8192,
 }
