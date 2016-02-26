@@ -8,7 +8,7 @@
                  [org.clojure/core.async "0.2.374"]
                  [hiccup "1.0.5"] ; html 模板
                  [compojure "1.4.0"] ; http 路由
-                 [javax.servlet/servlet-api "2.5"]
+                 [javax.servlet/servlet-api "2.5"] ; http-kit(ring) 依赖
                  [http-kit "2.1.19"] ; http 框架
                  [me.raynes/conch "0.8.0"] ; 命令执行
                  [de.mkammerer/argon2-jvm "1.1"] ; password hashing
