@@ -6,6 +6,7 @@
   :repositories [["bintray" "http://dl.bintray.com/phxql/maven"]]
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/core.async "0.2.374"]
+                 [crypto-random "1.2.0"]
                  [hiccup "1.0.5"] ; html 模板
                  [compojure "1.4.0"] ; http 路由
                  [javax.servlet/servlet-api "2.5"] ; http-kit(ring) 依赖

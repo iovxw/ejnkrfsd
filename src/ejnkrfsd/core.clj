@@ -1,5 +1,6 @@
 (ns ejnkrfsd.core
   (:require [ejnkrfsd.steam :as steam]
+            [ejnkrfsd.db :as db]
             [org.httpkit.server :refer :all]
             [compojure.core :refer [defroutes GET POST DELETE ANY context]]
             [compojure.handler :refer [site]]
@@ -15,8 +16,29 @@
                     :headers {"Content-Type" "text/plain"}
                     :body    "hello"})))
 
+(defn get-token [req]
+  (let [params (req :query-params)
+        id (get params "id")
+        password (get params "password")]
+    (if (and id password)
+      (if-let [info (db/get-user-info id)]
+        (if (db/true-passsword? password (info :password))
+          {:status 200
+           :headers {"Content-Type" "text/plain"}
+           :body    (db/update-token id)}
+          {:status 403
+           :headers {"Content-Type" "text/plain"}
+           :body    "密码错误"})
+        {:status 403
+         :headers {"Content-Type" "text/plain"}
+         :body    "用户不存在"})
+      {:status 401
+       :headers {"Content-Type" "text/plain"}
+       :body    "我拒绝!"})))
+
 (defroutes all-routes
   (GET "/" [] hello)
+  (GET "/get-token" [] get-token)
   (route/not-found "404"))
 
 (defn -main [& args]
@@ -29,4 +51,5 @@
                   :subprotocol "sqlite"
                   :subname     (str (config :workdir) "database.db")}]
     (prn config)
+    (db/init-db database)
     (run-server (site #'all-routes) {:port (config :port)})))
