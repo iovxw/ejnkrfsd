@@ -38,5 +38,14 @@
   ([id] (update-token @database id))
   ([db id]
    (let [token (gen-token)]
-     (jdbc/execute! db ["UPDATE user SET token = ?" token])
+     (jdbc/update! db :user {:token token} ["id = ?" id])
+     token)))
+
+(defn reset-password
+  ([id new-password] (update-password @database id new-password))
+  ([db id new-password]
+   (let [password-hash (.hash argon2 2 65536 1 new-password)
+         token (gen-token)]
+     (jdbc/update! db :user {:password password-hash
+                             :token token} ["id = ?" id])
      token)))
