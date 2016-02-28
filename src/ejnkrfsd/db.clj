@@ -15,7 +15,7 @@
                       admin       BOOLEAN DEFAULT FALSE)"]))
 
 (defn gen-token []
-  (random/base64 64))
+  (random/url-part 64))
 
 (defn new-user
   ([id password] (new-user @database id password))
